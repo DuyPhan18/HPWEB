@@ -2,12 +2,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Order
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def order_list(request):
     order_list = Order.objects.all()
     context = {'order_list':order_list}
     return render(request, "order/order_list.html", context)
 
+@login_required(login_url='login')
 def create_order(request):
     if request.method == "POST":
         user = request.user

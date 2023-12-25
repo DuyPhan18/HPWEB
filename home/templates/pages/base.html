@@ -42,7 +42,7 @@
     <div>
         <nav class="navbar navbar-expand-lg" style="background-color: #697b97;">
             <div class="container">
-                <a class="navbar-brand" href="/staff"><img src="{% static 'images/logo2.png' %}"style="max-height:35px" alt=""></a>
+                <a class="navbar-brand" href="/"><img src="{% static 'images/logo2.png' %}"style="max-height:35px" alt=""></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -52,7 +52,16 @@
                     <a class="nav-link" href="/">HP</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/">Products</a>
+                    <div class="dropdown  ml-5" role="group">
+                        <a type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown">
+                            Product
+                        </a>
+                        <ul class="dropdown-menu p-2">
+                            <li><a class="dropdown-item" href="">Unisex</a></li>
+                            <li><a class="dropdown-item" href="">Bag</a></li>
+                        
+                        </ul>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -66,17 +75,17 @@
               {% if user.username %}
               <div class="dropdown  ml-5" role="group">
                 
-                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                    Xin chao, {{user.username}}
-                </button>
-                <ul class="dropdown-menu p-2">
-                    {% if user.is_staff %}
-                        <li><a class="btn btn-success" href="/staff">FOR ADMIN</a></li>
-                    {% endif %}
-                    <li><a class="dropdown-item" href="{% url 'user' user.id %}">Info</a></li>
-                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                   
-                </ul>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                        Xin chao, {{user.username}}
+                    </button>
+                    <ul class="dropdown-menu p-2">
+                        {% if user.is_staff %}
+                            <li><a class="btn btn-success" href="/staff">FOR ADMIN</a></li>
+                        {% endif %}
+                        <li><a class="dropdown-item" href="{% url 'user' user.id %}">Info</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    
+                    </ul>
                 </div>
                 {% else %}
                 <div class="btn-group ml-5" role="group">

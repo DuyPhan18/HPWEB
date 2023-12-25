@@ -42,7 +42,7 @@ def login_handle(request):
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user)
-                messages.success(request, 'Login success')
+               
                 return redirect('home')
             else:
                 messages.error(request, 'Invalid username or password. Please try again.')
