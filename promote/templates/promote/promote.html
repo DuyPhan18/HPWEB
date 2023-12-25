@@ -1,0 +1,87 @@
+{% extends "staff/base_staff.html" %}
+
+{% block title %} Promote Management {% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="add-form">
+        <button id="showFormBtn" class="btn btn-primary">Create new promote</button>
+    
+        <form action="" method="post" id="promote_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; ">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="promote_name">Promote name</label>
+                <input type="text" name="promote_name" id="promote_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="discount">Discount</label>
+                <input type="text" name="discount" id="discount" class="form-control">
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="start_date">Start date:</label>
+                    <input type="date" name="start_date" id="start_date" class="form-control">    
+                </div>
+                <div class="form-group col-6">
+                    <label for="end_date">End date:</label>
+                    <input type="date" name="end_date" id="end_date" class="form-control" >  
+            </div>
+            </div>
+            <div class="form-group">
+                <label for="">Select product:</label>
+                <select class="form-select form-select-md mb-3" aria-label="Large select example">
+                    {% for product in products %}
+                    <img src="{{product.product_image.url}}" style="height: 25px; width: 25px;" alt="product_img"><option value="{{ product.product_name }}">{{ product.product_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <button class="btn btn-warning"id="hideFormBtn" >Cancel</button>
+        </form>
+    </div>
+    <hr>
+    <div class="list-promote">
+        <div class="row">
+            <div class="card col-6" style="border:none; background-color:rgb(218, 218, 218); ">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4 class="card-title">Promote name</h4>
+                        </div>
+                        <div class="col-6 text-end">
+                            <a href="" class="btn btn-success"><strong>...</strong></a>
+                        </div>
+                    </div>
+                    
+                    <hr style="border: none; height: 5px; background-color: rgb(0, 94, 3);">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="card-text"><strong>Product quantity:</strong> 5</p>
+                        </div>
+                        <div class="col-6 text-end" style="color: rgb(0, 183, 12);">
+                            <strong>active</strong>
+                        </div>
+                    </div>
+                    
+            </div>
+        </div>
+        </div>
+        
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var showbtn = document.getElementById('showFormBtn')
+        var hidebtn = document.getElementById('hideFormBtn')
+        var promoteForm = document.getElementById('promote_form')
+
+        showbtn.addEventListener('click', function(){
+            promoteForm.style.display = 'block';
+        })
+        hidebtn.addEventListener('click', function(){
+            promoteForm.style.display = 'none';
+        })
+    })  
+</script>
+
+{% endblock %}
