@@ -10,6 +10,7 @@ class Products(models.Model):
     product_image = models.ImageField(null=True)
     date = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=True)
+    sold_quantity = models.IntegerField(default=0)
     def __str__(self):
         return self.product_name
     @classmethod

@@ -27,7 +27,7 @@
                     <td>{{ order_item.total_quantity }}</td>
                     <td>{{ order_item.total_bill }}</td>
                     <td>{{ order_item.date }}</td>
-                    <td><a class="btn btn-success" href="">Detail</a></td>
+                    <td><a class="btn btn-success" href="{% url 'order:order_detail' order_item.id %}">Detail</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

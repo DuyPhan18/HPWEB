@@ -53,16 +53,41 @@
 <script>
     $(document).ready(function(){
        // Lắng nghe sự kiện thay đổi trên input quantity
-    $('.quantity').on('change', function () {
-        updateCartTotals($(this).closest('tr').data('id'));
-    });
+        $('.quantity').on('change', function () {
+            var productId = $(this).closest('tr').data('id');
+            var quantity = $(this).val();
+
+            // Gửi yêu cầu AJAX để cập nhật giỏ hàng
+            $.ajax({
+                url: '/update_cart/' + productId + '/',
+                type: 'POST',
+                data: {
+                    'quantity': quantity,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    if (data.success) {
+                        // Cập nhật giỏ hàng thành công, có thể cập nhật giao diện người dùng nếu cần
+                        // ...
+
+                        // Gọi lại hàm cập nhật tổng số lượng, tổng giá và tổng hóa đơn
+                        updateCartTotals(productId);
+                    } else {
+                        console.error('Failed to update cart.');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
 
     // Hàm cập nhật tổng số lượng, tổng giá và tổng hóa đơn cho một sản phẩm
-    function updateCartTotals(productId) {
-        var total_quantity = 0;
-        var total_bill = 0;
-        // Lặp qua từng sản phẩm trong giỏ hàng
-        $('.quantity').each(function () {
+        function updateCartTotals(productId) {
+            var total_quantity = 0;
+            var total_bill = 0;
+            // Lặp qua từng sản phẩm trong giỏ hàng
+            $('.quantity').each(function () {
                 var quantity = parseInt($(this).val()) || 0; // Số lượng của sản phẩm
                 var price = parseFloat($(this).closest('tr').find('.product_price').text().replace('$', '')) || 0; // Giá của sản phẩm
                 var currentProductId = $(this).closest('tr').data('id');
@@ -73,6 +98,11 @@
                     total_price = total_price_upd
                     $(this).closest('tr').find('.total_price').val(total_price);
                 }
+              
+                console.log(quantity);
+                console.log(price);
+                console.log(total_price);
+                // cập nhật lại cart session
 
                 total_quantity += quantity;
                 total_bill += total_price_upd; // Cập nhật total_bill cho tất cả sản phẩm
@@ -82,6 +112,7 @@
             $('#total_quantity').val(total_quantity);
             $('#total_bill').val(total_bill.toFixed(0)); // Round to two decimal places
         }
+       
 });
 // Lắng nghe sự kiện click nút DELETE
 $('.del_btn').on('click', function(e) {

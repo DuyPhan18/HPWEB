@@ -3,7 +3,7 @@ from .forms import LoginForm, RegisterForm
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login
 from product.views import Products
-from order.views import Order
+from order.views import Order, OrderDetails
 from decimal import Decimal
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -71,6 +71,20 @@ def add_to_cart(request, id):
 
     return redirect("/")
 
+def update_cart(request, product_id):
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 0))
+        total_price = int(request.POST.get('total_price', 0))
+
+        cart = request.session.get('cart', {})
+        if product_id in cart:
+            cart[product_id]['quantity'] = quantity
+            cart[product_id]['total_price'] = total_price
+            request.session['cart'] = cart
+
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False})
 def convert_decimal_to_float(obj):
     if isinstance(obj, Decimal):
         return float(obj)
@@ -82,6 +96,11 @@ def view_cart(request):
     total_quantity = sum(item.get('quantity', 0) for item in cart.values())
     total_bill = sum(int(item.get('total_price', 0)) for item in cart.values())
     return render(request, 'pages/cart.html', {'cart': cart,'total_quantity': total_quantity, 'total_bill': total_bill})
+def view_order(request, id)  :
+    order = get_object_or_404(Order, pk=id)
+    order_info = OrderDetails.objects.filter(order=order)
+    context = {'order':order, 'order_info':order_info}
+    return render(request, 'pages/view_order.html', context)
     
 def delete_from_cart(request, id):
     id = str(id)

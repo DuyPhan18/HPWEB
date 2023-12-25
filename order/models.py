@@ -24,5 +24,11 @@ class Order(models.Model):
 class OrderDetails(models.Model):
     order = models.ForeignKey(Order, related_name="products", on_delete=models.CASCADE)
     product_name = models.CharField(max_length=50)
-    total_quantity_choose = models.IntegerField()
-    total_price = models.DecimalField(max_digits=10, decimal_places=0)
+    product_price = models.DecimalField(max_digits = 10, decimal_places=0)
+    quantity = models.IntegerField()
+    total_price = models.DecimalField(max_digits=10, decimal_places=0, default=0)
+
+    @classmethod
+    def create_order_detail(cls, data):
+        order_detail = cls(**data)
+        order_detail.save()

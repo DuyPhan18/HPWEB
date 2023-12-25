@@ -48,14 +48,20 @@
                     <label class="form-label" for="email"><strong>Email:</strong></label>
                     <input class="form-control" id="email" name="email" value="{{ user.email }}" required>
                 </div>
-                    <!-- Input for Product Date -->
-                    <div class="">
-                    <label class="form-label" for="password1"><strong>Password:</strong></label>
-                    <input class="form-control" id="password1" name="password1" value="{{ user.password1 }}" >
-                </div>
+                <!-- Input for phone -->
                 <div class="">
-                    <label class="form-label" for="password2"><strong>Re-password:</strong></label>
-                    <input class="form-control" id="password2" name="password2" value="{{ user.password2 }}" >
+                    <label class="form-label" for="phone"><strong>Phone:</strong></label>
+                    <input class="form-control" id="number" name="phone" value="{{ user.phone }}" required>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="form-label" for="password1"><strong>Password:</strong></label>
+                        <input class="form-control" id="password1" name="password1" value="{{ user.password1 }}" >
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label" for="password2"><strong>Re-password:</strong></label>
+                        <input class="form-control" id="password2" name="password2" value="{{ user.password2 }}" >
+                    </div>
                 </div>
                 <!-- Input for Product Status -->
                           
@@ -87,7 +93,7 @@
                     <td>{{orderItem.total_bill}}</td>
                     <td>{{orderItem.date}}</td>
                     <td></td>
-                    <td><a href="" class="btn btn-success">Detail</a></td>
+                    <td><a href="{% url 'order_info' id=orderItem.id %}" class="btn btn-success">Detail</a></td>
                 </tr>
                 {% endfor %}
                 

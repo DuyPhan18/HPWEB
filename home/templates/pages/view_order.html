@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container py-3 px-3">
+        <a href="{% url 'user' user.id %}" class="btn btn-success">Back</a>
+        <h3>Order Details - {{ order_detail.id }}</h3>
+        <p>Created at : {{order_detail.date}}</p>
+        <h4>Customer: {{order_detail.user}}</h4>
+        <hr/>
+        <p><strong>Items list:</strong></p>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for info in order_info %}
+                <tr>
+                    <td scope="row">{{ forloop.counter }}</td>
+                    <td>{{ info.product_name }}</td>
+                    <td>{{ info.product_price }}</td>
+                    <td>{{ info.quantity }}</td>
+                    <td>{{ info.total_price }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <hr/>
+        <p><strong>Total items: </strong>{{order.total_quantity}}</p>
+        <p><strong>Total bill: </strong>{{order.total_bill}}</p>
+        <h2 class="text-center">Thank you for shopping!</h2>
+    </div>
+</body>
+</html>
+
