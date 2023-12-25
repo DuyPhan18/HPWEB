@@ -1,0 +1,58 @@
+{% extends "staff/base_staff.html" %}
+
+{% block title %} Add Product {% endblock %}
+
+{% block content %}
+    <div class="container px-2 py-2">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h3 class="text-center mb-4">ADD NEW PRODUCT</h3>
+                <form action="{% url 'product:add_product' %}" enctype="multipart/form-data" method="post" class="border p-4" style="border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="file" id="product_image" name="product_image" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="product_name"><strong>Product Name:</strong></label>
+                        <input type="text" class="form-control" id="product_name" name="product_name"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_desc"><strong>Desciption:</strong></label>
+                        <textarea type="product_desc" class="form-control" id="product_desc" name="product_desc" required> </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_price"><strong>Product price:</strong></label>
+                        <input type="number" class="form-control" id="product_price" name="product_price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_quantity"><strong>Product quantity:</strong></label>
+                        <input type="number" class="form-control" id="product_quantity" name="product_quantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_category"><strong>Category:</strong></label>
+                        <input type="text" class="form-control" id="product_category" name="product_category" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="product_status"><strong>Product status:</strong></label>
+                        <div class=""id="selectedStatus"></div>
+                        <div class="form-check">
+                            <input class="form-check-input" value="True" type="radio" name="status" id="checkSale">
+                            <label class="form-check-label" for="checkSale">
+                                Sale
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" value="False" type="radio"name="status" id="checkUnSale">
+                            <label class="form-check-label" for="checkUnSale">
+                                UnSale
+                            </label>  
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block mt-2">Submit</button>
+                    <a href="{% url 'product:product_list' %}" class="btn btn-danger btn-block mt-2">Cancel</a>
+                </form>
+            </div>
+        </div>    
+    </div>
+{% endblock %}

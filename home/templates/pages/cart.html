@@ -1,0 +1,108 @@
+{% extends 'pages/base.html' %}
+
+{% block title %} Your cart {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="back_btn mt-3 mb-4">
+        <a href="/" class="btn btn-outline-success "> <strong>< Continue shopping</strong></a>
+    </div>
+    
+    <div class="cart-content" >
+        <div class="table_bill border p-3" style="border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product_id, item in cart.items %}
+                    <tr class="border cart-content" data-id="{{ product_id }}">
+                        <td>{{ item.product_name }}</td>
+                        <td class="product_price">{{ item.product_price }}</td>
+                        <td><input type="number" class="quantity" name="quantity_choose" value="{{ item.quantity }}"></td>
+                        <td><input type="number" class="total_price" id="total_price"name="total_price" style="border: none;"  value="{{ item.total_price }}" readonly></td>
+                        <td><a href="{% url 'delete_from_cart' product_id %}" class="btn btn-danger del_btn">DELETE</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="total_bill_info border mt-5 p-3" style="border-radius: 0.4rem; background-color: rgb(198, 198, 198); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+            <form action="{% url 'order:create_order' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for=""><strong>Total quantity:</strong></label>
+                  <input type="number" name="total_quantity" id="total_quantity" value="{{ total_quantity }}"style="border: none; background-color: rgb(198, 198, 198);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
+                </div>
+                <div class="form-group">
+                    <label for=""><strong>Total bill:</strong></label>
+                    <input type="number" name="total_bill" id="total_bill" value="{{ total_bill }}" style="border: none; background-color: rgb(198, 198, 198);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
+                  </div>
+                <button class="btn btn-primary mt-3" type="submit">Checkout</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+       // Lắng nghe sự kiện thay đổi trên input quantity
+    $('.quantity').on('change', function () {
+        updateCartTotals($(this).closest('tr').data('id'));
+    });
+
+    // Hàm cập nhật tổng số lượng, tổng giá và tổng hóa đơn cho một sản phẩm
+    function updateCartTotals(productId) {
+        var total_quantity = 0;
+        var total_bill = 0;
+        // Lặp qua từng sản phẩm trong giỏ hàng
+        $('.quantity').each(function () {
+                var quantity = parseInt($(this).val()) || 0; // Số lượng của sản phẩm
+                var price = parseFloat($(this).closest('tr').find('.product_price').text().replace('$', '')) || 0; // Giá của sản phẩm
+                var currentProductId = $(this).closest('tr').data('id');
+                var total_price_upd = quantity * price;
+
+                // Kiểm tra nếu sản phẩm có data-id trùng khớp với productId, thực hiện cập nhật
+                if (currentProductId == productId) {
+                    total_price = total_price_upd
+                    $(this).closest('tr').find('.total_price').val(total_price);
+                }
+
+                total_quantity += quantity;
+                total_bill += total_price_upd; // Cập nhật total_bill cho tất cả sản phẩm
+            });
+
+            // Cập nhật giá trị vào các ô input
+            $('#total_quantity').val(total_quantity);
+            $('#total_bill').val(total_bill.toFixed(0)); // Round to two decimal places
+        }
+});
+// Lắng nghe sự kiện click nút DELETE
+$('.del_btn').on('click', function(e) {
+        e.preventDefault();
+
+        var deleteUrl = $(this).attr('href');
+
+        // Gửi yêu cầu AJAX để xóa sản phẩm
+        $.ajax({
+            url: deleteUrl,
+            method: 'GET',
+            success: function(data) {
+                // Cập nhật giao diện người dùng sau khi xóa
+                $('.cart-content').html(data);
+                updateCartTotals();  // Gọi lại hàm cập nhật sau khi xóa
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+
+</script>
+{% endblock %}

@@ -4,5 +4,7 @@ from . import views
 
 urlpatterns = [
     path("", views.indexStaff, name="home_staff"),
-    path("product/", include("product.urls")),
+    path("product/", include("product.urls", namespace="product")),
+    path("order/", include("order.urls", namespace="order")),
+    path("user/", include("user.urls", namespace="user")),
 ]

@@ -1,0 +1,38 @@
+{% extends "staff/base_staff.html" %}
+
+{% block title %} Order Management {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="title">
+        <h3>Order list</h3>
+    </div>
+    <div class="table-order border p-3" style="border-radius: 0.4rem ;">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Customer name</th>
+                    <th>Quantity</th>
+                    <th>Total bill</th>
+                    <th>Order date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order_item in order_list %}
+                <tr class="border text-center">
+                    <td scope="row">{{ order_item.id }}</td>
+                    <td classs="customer-name">{{ order_item.user }}</td>
+                    <td>{{ order_item.total_quantity }}</td>
+                    <td>{{ order_item.total_bill }}</td>
+                    <td>{{ order_item.date }}</td>
+                    <td><a class="btn btn-success" href="">Detail</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

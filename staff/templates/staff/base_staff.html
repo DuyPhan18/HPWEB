@@ -10,9 +10,23 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>{% block title %} {% endblock %}</title>
     <style>
+        html, body {
+            height: 100%;
+            background-color: #ffffff;
+        }
+        .nav-active {
+            border-radius: 0.3rem !important;
+            background-color: #cbd2fd !important;
+            color: #cbd2fd !important;
+            font-weight: bold !important;
+        }
+        table .selected {
+            background-color: #9739f4;
+        }
         .ml-5{
             margin-left: 5px;
         }
+        
     </style>
 </head>
 <body>
@@ -23,23 +37,23 @@
         <div>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/staff"><img src="{% static 'images/logo.png' %}"style="max-height:35px" alt=""></a>
+                    <a class="navbar-brand" href="/staff"><img src="{% static 'images/logo2.png' %}"style="max-height:35px" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/staff">Dashboard</a>
+                            <a class="nav-link" href="/staff">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="product/">Product</a>
+                            <a class="nav-link" href="{% url 'product:product_list' %}">Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Order</a>
+                            <a class="nav-link" href="{% url 'order:order_list' %}">Order</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Customer</a>
+                            <a class="nav-link" href="{% url 'user:user_list' %}">user</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Promote</a>
@@ -47,9 +61,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Voucher</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">USER</a>
-                        </li>
+                        
                     </ul>
                 </div>
                 <div class="">
@@ -82,5 +94,52 @@
         
         {% endif %}
     {% endif %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {     
+            var currentPath = window.location.pathname;
+            var urlParts = currentPath.split('/');
+
+            // Hàm để chuẩn hóa đường dẫn
+            function normalizePath(path) {
+                return path.startsWith('/') ? path : '/' + path;
+            }
+
+            // Lấy tất cả các thẻ li có thẻ a trong thanh điều hướng
+            var allListItems = document.querySelectorAll('.navbar-nav li');
+
+            // Xóa class "active" từ tất cả các thẻ li
+            allListItems.forEach(function (listItem) {
+                listItem.classList.remove('nav-active');
+            });
+
+            // Xác định thẻ li tương ứng với trang hiện tại
+            var activeListItem;
+
+            // Nếu đường dẫn có phần tử thứ 2 (ví dụ: "staff/..." hoặc "product/...")
+            if (urlParts.length > 1) {
+                var targetPath = normalizePath('/' + urlParts[2]);
+
+                // Lặp qua từng thẻ a để kiểm tra xem window.location.pathname có bắt đầu bằng giá trị href hay không
+                document.querySelectorAll('.navbar-nav li a').forEach(function (link) {
+                    var hrefValue = link.getAttribute('href');
+                    if (normalizePath(window.location.pathname).startsWith(hrefValue)) {
+                        activeListItem = link.parentNode;
+                    }
+                });
+            }
+
+            // Nếu không có thẻ li tương ứng, sử dụng thẻ li của liên kết Home
+            if (!activeListItem) {
+                activeListItem = document.querySelector('.navbar-nav li a[href="/staff"]').parentNode;
+            }
+
+            // Thêm class "active" cho thẻ li được xác định (nếu có)
+            if (activeListItem) {
+                activeListItem.classList.add('nav-active');
+            }
+        });
+
+       
+    </script>
 </body>
 </html>

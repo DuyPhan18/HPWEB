@@ -1,0 +1,67 @@
+{% extends "staff/base_staff.html" %}
+
+{% block title %} User Management {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="title">
+        <h3>User list</h3>
+    </div>
+    <div class="table-order border p-3" style="border-radius: 0.4rem ;">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link tab-item " aria-current="page" href="?is_staff=False">Customer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link tab-item " aria-current="page" href="?is_staff=True">Admin</a>
+            </li>
+          </ul>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>is_staff</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in user_list %}
+                <tr class="border p-2 text-center">
+                    <td scope="row">{{ user.id }}</td>
+                    <td classs="customer-name">{{ user.username }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.is_staff }}</td>
+                    <td><a class="btn btn-success" href="{% url 'user:user_info' user.id %}">Detail</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Lấy đường dẫn hiện tại của trang
+        var currentPath = window.location.pathname + window.location.search;
+        // Tìm tất cả các thẻ a trong thanh điều hướng
+        var navLinks = document.querySelectorAll('ul li .tab-item');
+        
+        // Lặp qua từng thẻ a để kiểm tra xem đường dẫn của nó có khớp với đường dẫn hiện tại không
+        navLinks.forEach(function (link) {
+            var hrefValue = link.getAttribute('href');
+            // Nếu đường dẫn hiện tại bắt đầu bằng giá trị href của liên kết
+            if (currentPath.includes(hrefValue)) {
+                // Thêm lớp "active" vào thẻ li chứa liên kết
+                link.classList.add('active');
+                console.log(link);
+            }
+        });
+    });
+       
+</script>
+{% endblock %}

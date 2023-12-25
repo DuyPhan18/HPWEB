@@ -1,0 +1,80 @@
+{% extends "staff/base_staff.html" %}
+
+{% block title %} Update  {{update_product.product_name}} {% endblock %}
+
+{% block content %}
+    <div class="container px-2 py-2">
+        <div class="row justify-content-center">
+            <h3 class="text-center mb-2">UPDATE PRODUCT: {{product_detail.product_name}} </h3> 
+            {{product_detail.date}}
+            {% if product_detail.status %}
+            <div class="alert alert-primary p-2" role="alert">
+                <strong>Sale</strong>
+            </div>
+            {% endif %}
+            <form action="{% url 'product:update_product' product_detail.id %}" enctype="multipart/form-data" method="post" class="border p-3" style="border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                {% csrf_token %}
+                <div class="row mt-5 ">
+                    
+                    <div class="col-6">
+                        {% if product_detail.product_image %}
+                        <img src="{{product_detail.product_image.url}}" class="card-img-top class= border p-4" name="product_image" style="width: 500px; height: 400px;" alt="product_img">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}  
+                        <!-- Input for Product Image -->
+                        <div class="mt-2">
+                            <input type="file" id="product_image" name="product_image" accept="image/*">
+                        </div>
+                        
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label" for="product_name"><strong>Product Name:</strong></label>
+                            <input class="form-control" type="text" id="product_name" name="product_name" value="{{ product_detail.product_name }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_desc"><strong>Desciption:</strong></label>
+                            <textarea type="product_desc" class="form-control" id="product_desc" name="product_desc" required>{{product_detail.product_desc}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_price"><strong>Product price:</strong></label>
+                            <input type="number" class="form-control" id="product_price" name="product_price" value="{{product_detail.product_price}}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_quantity"><strong>Product quantity:</strong></label>
+                            <input type="number" class="form-control" id="product_quantity" name="product_quantity" value="{{product_detail.product_quantity}}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_category"><strong>Category:</strong></label>
+                            <input type="text" class="form-control" id="product_category" name="product_category" value="{{product_detail.product_category}}" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="product_status"><strong>Product status:</strong></label>
+                            <div class=""id="selectedStatus"></div>
+                            <div class="form-check">
+                                <input class="form-check-input" value="True" type="radio" name="status" id="checkSale" {% if product_detail.status %} checked {% endif %}>
+                                <label class="form-check-label" for="checkSale">
+                                    Sale
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" value="False" type="radio"name="status" id="checkUnSale" {% if not product_detail.status %} checked {% endif %}>
+                                <label class="form-check-label" for="checkUnSale">
+                                    UnSale
+                                </label>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-2">Submit</button>
+                
+                <a href="{% url 'product:product_list' %}" class="btn btn-warning btn-block mt-2">Cancel</a>
+                {% if not product_detail.status %}
+                    <a href="/" class="btn btn-danger btn-block mt-2">Delete</a>
+                {% endif %}
+            </form>
+        </div>  
+    </div>
+
+{% endblock %}
