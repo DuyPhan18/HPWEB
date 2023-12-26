@@ -14,9 +14,9 @@
 <body>
     <div class="container py-3 px-3">
         <a href="{% url 'order:order_list' %}" class="btn btn-success">Back</a>
-        <h3>Order Details - {{ order_detail.id }}</h3>
-        <p>Created at : {{order_detail.date}}</p>
-        <h4>Customer: {{order_detail.user}}</h4>
+        <h3>Order Details - {{ order.id }}</h3>
+        <p>Created at : {{order.date}}</p>
+        <h4>Customer: {{order.user}}</h4>
         <hr/>
         <p><strong>Items list:</strong></p>
         

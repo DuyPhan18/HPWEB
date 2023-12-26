@@ -16,6 +16,12 @@ def create_order(request):
         user = request.user
         total_quantity = request.POST.get('total_quantity')
         total_bill = request.POST.get('total_bill')
+        voucher = request.POST.get('voucher')
+        print('sssssssss:', type(voucher))
+        print('sssssssss:', type(total_bill))
+        if voucher:
+           total_bill = int(total_bill) - (int(total_bill) * int(voucher) / 100)
+        print(total_bill)
         data = {
             'user': user,
             'total_quantity':total_quantity,

@@ -9,9 +9,11 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 import json
 from django.core.serializers.json import DjangoJSONEncoder
+from voucher.models import Voucher
 # Create your views here.
 def index(request):
     products = Products.objects.all()
+    
     for product in products:
         if product.promotion:
             product.product_price = product.product_price_on_sale
@@ -63,7 +65,7 @@ def add_to_cart(request, id):
     # Thêm sản phẩm vào giỏ hàng hoặc cập nhật số lượng nếu đã tồn tại
     if product.promotion:
         product.product_price = product.product_price_on_sale
-        
+
     cart[id] = {
         'product_name': product.product_name,
         'product_price': product.product_price,
@@ -100,10 +102,14 @@ def convert_decimal_to_float(obj):
 
 def view_cart(request):
     cart = request.session.get('cart',{})
+    vouchers = Voucher.objects.all()
     # Tính toán total_quantity và total_bill
     total_quantity = sum(item.get('quantity', 0) for item in cart.values())
     total_bill = sum(int(item.get('total_price', 0)) for item in cart.values())
-    return render(request, 'pages/cart.html', {'cart': cart,'total_quantity': total_quantity, 'total_bill': total_bill})
+
+    context = {'cart': cart,'total_quantity': total_quantity, 'total_bill': total_bill, 'vouchers':vouchers}
+    
+    return render(request, 'pages/cart.html', context)
 def view_order(request, id)  :
     order = get_object_or_404(Order, pk=id)
     order_info = OrderDetails.objects.filter(order=order)

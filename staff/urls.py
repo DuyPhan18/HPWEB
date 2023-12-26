@@ -7,5 +7,6 @@ urlpatterns = [
     path("product/", include("product.urls", namespace="product")),
     path("order/", include("order.urls", namespace="order")),
     path("user/", include("user.urls", namespace="user")),
-    path("promotion/", include("promotion.urls", namespace="promotion"))
+    path("promotion/", include("promotion.urls", namespace="promotion")),
+    path("voucher/", include("voucher.urls", namespace="voucher"))
 ]

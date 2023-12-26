@@ -1,44 +1,25 @@
 {% extends "staff/base_staff.html" %}
 
-{% block title %} Promote Management {% endblock %}
+{% block title %} Voucher Management {% endblock %}
 
 {% block content %}
 <div class="container mt-3">
     <div class="add-form">
-        <button id="showFormBtn" class="btn btn-primary">Create new promote</button>
+        <button id="showFormBtn" class="btn btn-primary">Create new voucher</button>
         {{ error_message }}
-        <form action="{% url 'promotion:create_promote' %}" method="post" id="promote_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; ">
+        <form action="{% url 'voucher:create_voucher' %}" method="post" id="v_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; ">
             {% csrf_token %}
             <div class="form-group">
-                <label for="promote_name">Promote name</label>
-                <input type="text" name="promote_name" id="promote_name" class="form-control">
+                <label for="voucher_name">Voucher name</label>
+                <input type="text" name="voucher_name" id="voucher_name" class="form-control">
             </div>
             <div class="form-group">
-                <label for="discount">Discount</label>
-                <input type="text" name="discount" id="discount" class="form-control">
-            </div>
-            <div class="row">
-                <div class="form-group col-6">
-                    <label for="start_date">Start date:</label>
-                    <input type="date" name="start_date" id="start_date" class="form-control">    
-                </div>
-                <div class="form-group col-6">
-                    <label for="end_date">End date:</label>
-                    <input type="date" name="end_date" id="end_date" class="form-control" >  
-                </div>
+                <label for="v_discount">Discount</label>
+                <input type="text" name="v_discount" id="v_discount" class="form-control">
             </div>
             <div class="form-group">
-                <label for=""><strong>Select product:</strong></label>
-                <div class="checkbox-list">
-                    {% for product in products %}
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="products" value="{{ product.id }}" id="products{{ product.id }}">
-                            <label class="form-check-label" for="products{{ product.id }}">
-                                {{ product.product_name }}
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div>
+                <label for="v_quantity">Quantity</label>
+                <input type="text" name="v_quantity" id="v_quantity" class="form-control">
             </div>
             <div class="">
                 <label class="form-label" for="is_active"><strong>Status:</strong></label>
@@ -57,52 +38,51 @@
     <hr>
     <div class="list-promote">
         <div class="row p-2">
-            {% for promote in promote_list %}
+            {% for v in vouchers %}
             <div class="card col-sm-6 m-2 " style=" width: 26rem;border:none; background-color:rgb(240, 240, 240); ">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <h4 class="card-title">{{ promote.promote_name }}</h4>
+                            <h4 class="card-title">{{ v.voucher_name }}</h4>
                         </div>
                         <div class="col-6 text-end">
                             <a href="" class="btn btn-success"><strong>...</strong></a>
                         </div>
                     </div>
-                    {% if promote.status %}
+                   
                     <hr style="border: none; height: 5px; background-color: rgb(0, 94, 3);">
-                    {%else%}
-                    <hr style="border: none; height: 5px; background-color: rgb(219, 0, 0);">
-                    {% endif %}
                     <div class="row">
                         <div class="col-6">
                             <p class="card-text"><strong>Status</strong></p>
                         </div>
                         <div class="col-6 text-end" >
-                            {% if promote.status %}
+                            {% if v.status %}
                             <strong style="color: rgb(0, 183, 12);">active</strong>
-                            {%else%}
+                            {% else %}
                             <strong style="color: rgb(183, 0, 0);">no-active</strong>
                             {% endif %}
                         </div>
                     </div>        
                 </div>
             </div>
-            {% endfor %}
+       {% endfor %}
         </div> 
     </div>
-    
+    <div class="promote-info">
+        
+    </div>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function(){
         var showbtn = document.getElementById('showFormBtn')
         var hidebtn = document.getElementById('hideFormBtn')
-        var promote_form = document.getElementById('promote_form')
+        var v_form = document.getElementById('v_form')
 
         showbtn.addEventListener('click', function(){
-            promote_form.style.display = 'block';
+            v_form.style.display = 'block';
         })
         hidebtn.addEventListener('click', function(){
-            promote_form.style.display = 'none';
+            v_form.style.display = 'none';
         })
     })  
 </script>

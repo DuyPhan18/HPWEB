@@ -33,17 +33,35 @@
                 </tbody>
             </table>
         </div>
-        <div class="total_bill_info border mt-5 p-3" style="border-radius: 0.4rem; background-color: rgb(198, 198, 198); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+        <div class="total_bill_info border mt-5 p-3" style="border-radius: 0.4rem; background-color: rgb(229, 229, 229); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
             <form action="{% url 'order:create_order' %}" method="post">
                 {% csrf_token %}
-                <div class="form-group">
-                  <label for=""><strong>Total quantity:</strong></label>
-                  <input type="number" name="total_quantity" id="total_quantity" value="{{ total_quantity }}"style="border: none; background-color: rgb(198, 198, 198);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for=""><strong>Total quantity:</strong></label>
+                            <input type="number" name="total_quantity" id="total_quantity" value="{{ total_quantity }}"style="border: none; background-color: rgb(198, 198, 198);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for=""><strong>Total bill:</strong></label>
+                            <input type="number" name="total_bill" id="total_bill" value="{{ total_bill }}" style="border: none; background-color: rgb(198, 198, 198);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="height: 8rem; overflow: auto;">
+                        <h5>Voucher list:</h5>
+                          <div class="voucher_list justify-content-center">
+                            {% for v in vouchers %}
+                            {% if v.status %}
+                            <label class="custom-control custom-checkbox p-2 mb-2" style=" width: 13rem;;border-radius: 0.4rem;border: 2px solid #0e0e0e;">
+                              <span class="custom-control-indicator">{{v.voucher_name}}</span> -
+                              <span class="custom-control-description"><strong>{{v.v_discount}}</strong></span>
+                              <input type="checkbox" name="voucher" id="voucher" value="{{v.v_discount}}" class="custom-control-input">
+                            </label>
+                            {% endif %}
+                            {% endfor %}
+                          </div>          
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for=""><strong>Total bill:</strong></label>
-                    <input type="number" name="total_bill" id="total_bill" value="{{ total_bill }}" style="border: none; background-color: rgb(198, 198, 198);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
-                  </div>
                 <button class="btn btn-primary mt-3" type="submit">Checkout</button>
             </form>
         </div>

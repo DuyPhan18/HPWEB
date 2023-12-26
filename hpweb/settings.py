@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "order",
     "user",
     "promotion",
+    "voucher",
 ]
 
 MIDDLEWARE = [
