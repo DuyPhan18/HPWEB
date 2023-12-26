@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="row new_product">
                     <h2 class="text-center mt-5">New Product</h2>
-                    {% for product in products %}
+                    {% for product in new_products %}
                     {% if product.status %}
                     <div class="col-sm-2 m-3">
                         <div class="card" style="width: 13rem; height: 19rem;border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="row new_product">
                     <h2 class="text-center mt-5">Best Seller</h2>
-                    {% for product in products %}
+                    {% for product in best_products %}
                     {% if product.status %}
                     <div class="col-sm-2 m-3">
                         <div class="card" style="width: 13rem; height: 19rem;border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
@@ -79,7 +79,9 @@
                 </div>
             </div>
             <!--Main-->
-
+            <div class="contact">
+              
+            </div>
 
            
     </div>

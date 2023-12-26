@@ -10,17 +10,33 @@ from django.contrib import messages
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from voucher.models import Voucher
+from django.db.models import Q
 # Create your views here.
 def index(request):
     products = Products.objects.all()
-    
+    new_products = Products.objects.order_by("-date")[:5]
+    search_quuery = request.GET.get("search")
+    best_products = Products.objects.order_by("-sold_quantity")[:5]
+
+
     for product in products:
+            if product.promotion:
+                product.product_price = product.product_price_on_sale
+            else:
+                product.product_price
+    for product in new_products:
         if product.promotion:
             product.product_price = product.product_price_on_sale
         else:
             product.product_price
 
-    context={'products': products}
+    for product in best_products:
+        if product.promotion:
+            product.product_price = product.product_price_on_sale
+        else:
+            product.product_price
+
+    context={'products':products,'new_products': new_products,'best_products':best_products}
     return render(request, 'pages/index.html', context)
 
 def user_info(request, id):

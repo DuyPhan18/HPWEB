@@ -63,12 +63,12 @@
                   </li>
                 </ul>
               </div>
-              <div class="search">
-                <form class="d-flex " role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <!-- <div class="search">
+                <form action="{% url 'home' %}" method="GET" class="d-flex " role="search">
+                    <input name="search" value="{{ search_quuery }}" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-              </div>
+              </div> -->
               
               {% if user.username %}
               <div class="dropdown  ml-5" role="group">
@@ -102,8 +102,28 @@
 
     {% endblock %}
      <!--Footer-->
-     <footer class="footer">
-        <i class="fa fa-copyright" aria-hidden="true">HPWEB</i>
+     <footer class="footer" >
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h5 class="m-5">HPWEB</h5>
+                    <a class="navbar-brand" href="/"><img src="{% static 'images/logo2.png' %}"style="max-height:10rem" alt=""></a>
+                </div>
+                <div class="col-6">
+                    <h5 class="m-5">More informations</h5>
+                    <ul style="list-style: none;">
+                        <li>Contact</li>
+                        <li>Your account: {{user.username}}</li>
+                        <li><strong>Github:</strong><a href="https://github.com/DuyPhan18/HPWEB">github project</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-center">
+                <i class="fa fa-copyright" aria-hidden="true">HPWEB</i>
+            </p>
+            
+        </div>
+        
     </footer>
 </body>
 </html>
