@@ -6,8 +6,8 @@
 <div class="container mt-3">
     <div class="add-form">
         <button id="showFormBtn" class="btn btn-primary">Create new promote</button>
-    
-        <form action="" method="post" id="promote_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; ">
+        {{ error_message }}
+        <form action="{% url 'promotion:create_promote' %}" method="post" id="promote_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; ">
             {% csrf_token %}
             <div class="form-group">
                 <label for="promote_name">Promote name</label>
@@ -25,28 +25,44 @@
                 <div class="form-group col-6">
                     <label for="end_date">End date:</label>
                     <input type="date" name="end_date" id="end_date" class="form-control" >  
-            </div>
+                </div>
             </div>
             <div class="form-group">
-                <label for="">Select product:</label>
-                <select class="form-select form-select-md mb-3" aria-label="Large select example">
+                <label for=""><strong>Select product:</strong></label>
+                <div class="checkbox-list">
                     {% for product in products %}
-                    <img src="{{product.product_image.url}}" style="height: 25px; width: 25px;" alt="product_img"><option value="{{ product.product_name }}">{{ product.product_name }}</option>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="products" value="{{ product.id }}" id="products{{ product.id }}">
+                            <label class="form-check-label" for="products{{ product.id }}">
+                                {{ product.product_name }}
+                            </label>
+                        </div>
                     {% endfor %}
-                </select>
+                </div>
             </div>
+            <div class="">
+                <label class="form-label" for="is_active"><strong>Status:</strong></label>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="status" id="checkStatus" >
+                    <label class="form-check-label" for="checkStatus">
+                        Active
+                    </label>
+                </div>
+            </div>    
             <button class="btn btn-primary" type="submit">Submit</button>
-            <button class="btn btn-warning"id="hideFormBtn" >Cancel</button>
+            <a class="btn btn-warning"id="hideFormBtn">Cancel</a>
         </form>
     </div>
     <hr>
     <div class="list-promote">
-        <div class="row">
-            <div class="card col-6" style="border:none; background-color:rgb(218, 218, 218); ">
+        <div class="row justify-content-center">
+            {% for promote in promote_list %}
+            <div class="card col-sm-6 m-2 " style=" width: 26rem;border:none; background-color:rgb(240, 240, 240); ">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <h4 class="card-title">Promote name</h4>
+                            <h4 class="card-title">{{ promote.promote_name }}</h4>
                         </div>
                         <div class="col-6 text-end">
                             <a href="" class="btn btn-success"><strong>...</strong></a>
@@ -56,16 +72,22 @@
                     <hr style="border: none; height: 5px; background-color: rgb(0, 94, 3);">
                     <div class="row">
                         <div class="col-6">
-                            <p class="card-text"><strong>Product quantity:</strong> 5</p>
+                            <p class="card-text"><strong>Status</strong></p>
                         </div>
-                        <div class="col-6 text-end" style="color: rgb(0, 183, 12);">
-                            <strong>active</strong>
+                        <div class="col-6 text-end" >
+                            {% if promote.status %}
+                            <strong style="color: rgb(0, 183, 12);">active</strong>
+                            {%else%}
+                            <strong style="color: rgb(183, 0, 0);">no-active</strong>
+                            {% endif %}
                         </div>
-                    </div>
-                    
+                    </div>        
+                </div>
             </div>
-        </div>
-        </div>
+            {% endfor %}
+        </div> 
+    </div>
+    <div class="promote-info">
         
     </div>
 </div>
@@ -73,13 +95,13 @@
     document.addEventListener('DOMContentLoaded', function(){
         var showbtn = document.getElementById('showFormBtn')
         var hidebtn = document.getElementById('hideFormBtn')
-        var promoteForm = document.getElementById('promote_form')
+        var promote_form = document.getElementById('promote_form')
 
         showbtn.addEventListener('click', function(){
-            promoteForm.style.display = 'block';
+            promote_form.style.display = 'block';
         })
         hidebtn.addEventListener('click', function(){
-            promoteForm.style.display = 'none';
+            promote_form.style.display = 'none';
         })
     })  
 </script>

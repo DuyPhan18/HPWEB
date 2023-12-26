@@ -5,12 +5,14 @@ class Products(models.Model):
     product_name = models.CharField(max_length=100)
     product_desc = models.TextField()
     product_price = models.DecimalField(max_digits = 10, decimal_places=0)
+    product_price_on_sale = models.DecimalField(max_digits = 10, decimal_places=0, null=True)
     product_quantity = models.IntegerField(default=0)
     product_category = models.CharField(max_length=100)
     product_image = models.ImageField(null=True)
     date = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=True)
     sold_quantity = models.IntegerField(default=0)
+    promotion = models.BooleanField(default=False)
     def __str__(self):
         return self.product_name
     @classmethod
@@ -28,6 +30,7 @@ class Products(models.Model):
         self.status = data.get('status', self.status)
         self.save()
         return f"Sản phẩm {self.product_name} đã được cập nhật thành công."
+
 
     def delete_product(self):
         if self.status != "True":

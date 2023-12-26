@@ -12,6 +12,11 @@ from django.core.serializers.json import DjangoJSONEncoder
 # Create your views here.
 def index(request):
     products = Products.objects.all()
+    for product in products:
+        if product.promotion:
+            product.product_price = product.product_price_on_sale
+        else:
+            product.product_price
 
     context={'products': products}
     return render(request, 'pages/index.html', context)
@@ -56,6 +61,9 @@ def add_to_cart(request, id):
     product = get_object_or_404(Products, pk=id)
     cart = request.session.get('cart', {})
     # Thêm sản phẩm vào giỏ hàng hoặc cập nhật số lượng nếu đã tồn tại
+    if product.promotion:
+        product.product_price = product.product_price_on_sale
+        
     cart[id] = {
         'product_name': product.product_name,
         'product_price': product.product_price,
@@ -101,7 +109,7 @@ def view_order(request, id)  :
     order_info = OrderDetails.objects.filter(order=order)
     context = {'order':order, 'order_info':order_info}
     return render(request, 'pages/view_order.html', context)
-    
+
 def delete_from_cart(request, id):
     id = str(id)
 
