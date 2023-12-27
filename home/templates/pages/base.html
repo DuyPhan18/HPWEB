@@ -30,7 +30,11 @@
         }
         .navbar{
             position: sticky;
+            z-index: 1;
             
+        }
+        .carousel{
+            z-index: 0;
         }
        
     </style>
@@ -55,20 +59,15 @@
                             Product
                         </a>
                         <ul class="dropdown-menu p-2">
-                            <li><a class="dropdown-item" href="">Unisex</a></li>
-                            <li><a class="dropdown-item" href="">Bag</a></li>
+                            <li><a class="dropdown-item" href="/all_products/?cate=unisex">Unisex</a></li>
+                            <li><a class="dropdown-item" href="/all_products/?cate=bag">Bag</a></li>
                         
                         </ul>
                     </div>
                   </li>
                 </ul>
               </div>
-              <!-- <div class="search">
-                <form action="{% url 'home' %}" method="GET" class="d-flex " role="search">
-                    <input name="search" value="{{ search_quuery }}" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-              </div> -->
+              
               
               {% if user.username %}
               <div class="dropdown  ml-5" role="group">
@@ -98,6 +97,9 @@
             
           </nav>
     </div>
+    {% block slideshow %}
+    
+    {% endblock %}
     {% block content %}
 
     {% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'pages/base.html' %}
+
+{% block title %} All products {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="search mt-3">
+        <form action="{% url 'all_products' %}" method="GET" class="d-flex " role="search">
+            <input name="search" value="{{ search_quuery }}" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+      <div class="product_list">
+        <div class="row new_product">
+            <h2 class="text-center mt-5">Products</h2>
+            {% for product in products %}
+            {% if product.status %}
+            <div class="col-sm-2 m-3">
+                <div class="card" style="width: 13rem; height: 19rem;border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                    <a href="/product/{{product.id}}"><img src="{{product.product_image.url}}" class="card-img-top class= border" style="object-fit: cover; width: 13rem; height: 10rem;" alt="product_img"></a>
+                    <div class="card-body">
+                      <h5 class="card-title">{{product.product_name}}</h5>
+                        {% if product.promotion %}
+                        <p class="card-text" style="color: red;">{{product.product_price}}</p>
+                        {% else %}
+                        <p class="card-text">{{product.product_price}}</p>
+                        {% endif %}
+                      
+                      <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success">Add to cart</a>
+                    </div>
+                  </div>   
+            </div>
+            {% endif %}
+            {% endfor %} 
+        </div>
+      </div>
+</div>
+
+{% endblock %}

@@ -15,7 +15,6 @@ from django.db.models import Q
 def index(request):
     products = Products.objects.all()
     new_products = Products.objects.order_by("-date")[:5]
-    search_quuery = request.GET.get("search")
     best_products = Products.objects.order_by("-sold_quantity")[:5]
 
 
@@ -39,6 +38,24 @@ def index(request):
     context={'products':products,'new_products': new_products,'best_products':best_products}
     return render(request, 'pages/index.html', context)
 
+#All_product pages
+def all_products(request):
+
+    filter_cate = request.GET.get('cate', '')
+    search_quuery = request.GET.get("search")
+    if filter_cate.lower() == 'unisex':
+        print("dđ:",filter_cate.lower() == 'unisex')
+        products = Products.objects.filter(product_category__iexact='Unisex')
+        print(products)
+    elif filter_cate.lower() == 'bag':
+        products = Products.objects.filter(product_category__iexact='bag')
+    else:
+        products = Products.objects.all()
+
+    if search_quuery:
+        products = Products.objects.filter(Q(product_name__icontains=search_quuery ))
+
+    return render(request, 'pages/all_product.html', {'products':products,'filter_cate':filter_cate, 'search_quuery':search_quuery})
 def user_info(request, id):
     user = get_object_or_404(User, pk=id)
     order = Order.objects.filter(user=id)

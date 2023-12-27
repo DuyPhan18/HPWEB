@@ -65,7 +65,7 @@
                             <h4 class="card-title">{{ promote.promote_name }}</h4>
                         </div>
                         <div class="col-6 text-end">
-                            <a href="" class="btn btn-success"><strong>...</strong></a>
+                            <a href="{% url 'promotion:promote_detail' promote.id %}" class="btn btn-success"><strong>...</strong></a>
                         </div>
                     </div>
                     {% if promote.status %}

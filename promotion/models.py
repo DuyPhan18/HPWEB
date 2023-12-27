@@ -19,3 +19,12 @@ class Promotes(models.Model):
         # Logic để thêm một khuyến mãi mới
         new_promote = cls.objects.create(**data)
         return new_promote
+    @classmethod
+    def update_promote(cls,instance, data):
+        instance.products.set(data.get('products', instance.products.all()))
+        instance.promote_name = data.get('promote_name', instance.promote_name)
+        instance.discount = data.get('discount', instance.discount)
+        instance.start_date = data.get('start_date', instance.start_date)
+        instance.end_date = data.get('end_date', instance.end_date)
+        instance.status = data.get('status', instance.status)
+        instance.save()

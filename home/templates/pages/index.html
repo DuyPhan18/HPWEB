@@ -2,6 +2,26 @@
 
 {% block title %} Shopping {% endblock %}
 {% load static %}
+{% block slideshow %}
+    <div id="carousel" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-inner">
+          <div class="carousel-item active" style="height: 25rem;">
+            <img src="{% static 'images/cv1.jpg' %}" class="d-block w-100" style="object-fit: cover; width: 100%; height: 100%;" alt="...">
+          </div>
+          <div class="carousel-item" style="height: 25rem;">
+            <img src="{% static 'images/cv2.jpg' %}" class="d-block w-100" style="object-fit: cover; width: 100%; height: 100%;" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    {% endblock %}
 {% block content %}
     <div class="main">
             <!--Main-->
@@ -12,7 +32,7 @@
                 {% if product.promotion %}
                 <div class="col-sm-2 m-3">
                     <div class="card" style="width: 13rem; height: 19rem;border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                        <a href="/product/{{product.id}}"><img src="{{product.product_image.url}}" class="card-img-top class= border p-4" style="width: 13rem; height: 10rem;" alt="product_img"></a>
+                        <a href="/product/{{product.id}}"><img src="{{product.product_image.url}}" class="card-img-top class= border" style="object-fit: cover;width: 13rem; height: 10rem;" alt="product_img"></a>
                         <div class="card-body">
                           <h5 class="card-title">{{product.product_name}}</h5>
                             {% if product.promotion %}
@@ -34,7 +54,7 @@
                     {% if product.status %}
                     <div class="col-sm-2 m-3">
                         <div class="card" style="width: 13rem; height: 19rem;border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                            <a href="/product/{{product.id}}"><img src="{{product.product_image.url}}" class="card-img-top class= border p-4" style="width: 13rem; height: 10rem;" alt="product_img"></a>
+                            <a href="/product/{{product.id}}"><img src="{{product.product_image.url}}" class="card-img-top class= border" style="object-fit: cover; width: 13rem; height: 10rem;" alt="product_img"></a>
                             <div class="card-body">
                               <h5 class="card-title">{{product.product_name}}</h5>
                                 {% if product.promotion %}
@@ -56,7 +76,7 @@
                     {% if product.status %}
                     <div class="col-sm-2 m-3">
                         <div class="card" style="width: 13rem; height: 19rem;border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                            <a href="/product/{{product.id}}"><img src="{{product.product_image.url}}" class="card-img-top class= border p-4" style="width: 13rem; height: 10rem;" alt="product_img"></a>
+                            <a href="/product/{{product.id}}"><img src="{{product.product_image.url}}" class="card-img-top class= border" style="object-fit: cover; width: 13rem; height: 10rem;" alt="product_img"></a>
                             <div class="card-body">
                               <h5 class="card-title">{{product.product_name}}</h5>
                                 {% if product.promotion %}
@@ -81,7 +101,7 @@
                     {% if product.status %}
                     <div class="col-sm-2 m-3">
                         <div class="card" style="width: 13rem; height: 19rem;border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                            <a href="/product/{{product.id}}"><img src="{{product.product_image.url}}" class="card-img-top class= border p-4" style="width: 13rem; height: 10rem;" alt="product_img"></a>
+                            <a href="/product/{{product.id}}"><img src="{{product.product_image.url}}" class="card-img-top class= border" style="object-fit: cover; width: 13rem; height: 10rem;" alt="product_img"></a>
                             <div class="card-body">
                               <h5 class="card-title">{{product.product_name}}</h5>
                                 {% if product.promotion %}

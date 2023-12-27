@@ -1,0 +1,64 @@
+{% extends "staff/base_staff.html" %}
+
+{% block title %} Update Promote Management {% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="cotainer p-4">
+  
+    <div class="col-md-6">
+        <h4>Edit promotion {{promote_detail.id}}</h4>
+    </div>
+    <form action="{% url 'promotion:update_promote' promote_detail.id %}" method="post" id="update_promotion" class="border p-4 mt-2" style=" border-radius: 0.4rem; ">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="promote_name">Promote name</label>
+            <input type="text" name="promote_name" id="promote_name" class="form-control" value="{{promote_detail.promote_name}}">
+        </div>
+        <div class="form-group">
+            <label for="discount">Discount</label>
+            <input type="text" name="discount" id="discount" class="form-control"value="{{promote_detail.discount}}">
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="start_date">Start date:</label>
+                <input type="date" name="start_date" id="start_date" class="form-control"value="{{promote_detail.start_date}}">    
+            </div>
+            <div class="form-group col-6">
+                <label for="end_date">End date:</label>
+                <input type="date" name="end_date" id="end_date" class="form-control"value="{{promote_detail.end_date}}" >  
+            </div>
+        </div>
+        <div class="form-group">
+            <label for=""><strong>Select product:</strong></label>
+            <div class="checkbox-list">
+                {% for product in products %}
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="products" value="{{ product.id }}" id="product_{{ product.id }}"{{ product.id }} {%  if product.promotion %} checked {% endif %}>
+                        <label class="form-check-label" for="products{{ pro_c.id }}">
+                            {{ product.product_name }}
+                        </label>
+                    </div>
+                    
+                {% endfor %}
+            </div>
+        </div>
+        <div class="">
+            <label class="form-label" for="is_active"><strong>Status:</strong></label>
+           
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="status" id="checkStatus" {% if promote_detail.status %} checked {%endif%}>
+                <label class="form-check-label" for="checkStatus">
+                    Active
+                </label>
+            </div>
+        </div>    
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+          
+</div>
+</div>
+
+{% endblock %}

@@ -5,10 +5,12 @@
 {% block content %}
 
 <div class="container mt-2">
-    <form action=""
-        method="POST" class="update_product" enctype="multipart/form-data" style="border: none; border-radius: 0.4rem;">
+    <a href="{% url 'user:user_list' %}" class="btn btn-success mt-2">Back to user list</a>
+    <form action="{% url 'user:update_user' user.id %}"
+        method="POST" class="update_user" enctype="multipart/form-data" style="border: none; border-radius: 0.4rem;">
         {% csrf_token %}
         <div class="row mt-5 ">
+            
             <div class="col-6">
                 <div class="title">
                     <h4>Information of user {{user_info.id}}</h4>
@@ -24,38 +26,38 @@
                     <!-- Input for Username -->
                 <div class="">
                     <label class="form-label" for="username"><strong>User Name:</strong></label>
-                    <input class="form-control" type="text" id="username" name="username" value="{{ user_info.username }}" required>
+                    <input class="form-control" type="text" id="username" name="username" value="{{ user.username }}" required>
                 </div>
                 <!-- Input for Name -->
                 <div class="">
                     <label class="form-label" for="first_name"><strong>First name:</strong></label>
-                    <input class="form-control" id="first_name" name="first_name" value="{{ user_info.first_name }}" required>
+                    <input class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" required>
                 </div>
                 <!-- Input for Product Quantity -->
                 <div class="">
                     <label class="form-label" for="last_name"><strong>Last name:</strong></label>
-                    <input class="form-control" id="last_name" name="last_name" value="{{ user_info.last_name }}" required>
+                    <input class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" required>
                 </div>
                 <!-- Input for Product Category -->
                 <div class="">
                     <label class="form-label" for="email"><strong>Email:</strong></label>
-                    <input class="form-control" id="email" name="email" value="{{ user_info.email }}" required>
+                    <input class="form-control" id="email" name="email" value="{{ user.email }}" required>
                 </div>
                     <!-- Input for Product Date -->
                     <div class="">
                     <label class="form-label" for="password1"><strong>Password:</strong></label>
-                    <input class="form-control" id="password1" name="password1" value="{{ user_info.password1 }}" >
+                    <input class="form-control" id="password1" name="password1" value="{{ user.password1 }}" >
                 </div>
                 <div class="">
                     <label class="form-label" for="password2"><strong>Re-password:</strong></label>
-                    <input class="form-control" id="password2" name="password2" value="{{ user_info.password2 }}" >
+                    <input class="form-control" id="password2" name="password2" value="{{ user.password2 }}" >
                 </div>
                 <!-- Input for Product Status -->
                 <div class="">
                     <label class="form-label" for="staff_status"><strong>Staff:</strong></label>
                     <div class="" id="selectedStatus"></div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="is_staff" id="checkStaff" {% if user_info.is_staff %} checked {% endif %}>
+                        <input class="form-check-input" type="checkbox" name="is_staff" id="checkStaff" {% if user.is_staff %} checked {% endif %}>
                         <label class="form-check-label" for="checkStaff">
                             Staff
                         </label>

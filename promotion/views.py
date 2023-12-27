@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from product.models import Products
-from .forms import CreatePromoteForm
+from .forms import CreatePromoteForm, UpdatePromoteForm
 from .models import Promotes
 from decimal import Decimal
 from django.urls import reverse
@@ -11,7 +11,7 @@ def promote(request):
 
     products = Products.objects.all()
     promote_list = Promotes.objects.all()
-    print('rrr:', promote_list)
+
     context = {'products': products, 'promote_list':promote_list}
     return render(request, "promotion/promote.html", context)
     
@@ -46,3 +46,22 @@ def create_promote(request):
     context ={'form':form}
 
     return render(request, "promotion/promote.html", context)
+
+def promote_detail(request, id):
+    promote_detail = Promotes.objects.get(pk=id)
+    products = Products.objects.all()
+    return render(request, 'promotion/update_promote.html', {'promote_detail': promote_detail, 'products': products})
+
+def update_promote(request, id):
+    update_promote = get_object_or_404(Promotes, pk=id)
+    if request.method == "POST":
+        form = UpdatePromoteForm(request.POST, instance=update_promote)
+        if form.is_valid():
+            data = form.cleaned_data
+            update_promote.update_promote(data)
+            return HttpResponseRedirect(reverse('promotion:promotion'))
+    else:
+        form = UpdatePromoteForm()
+    context = {'update_promote': update_promote, 'form': form}
+
+    return render(request, "promotion/update_promote.html", context)

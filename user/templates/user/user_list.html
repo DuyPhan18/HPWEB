@@ -4,6 +4,60 @@
 
 {% block content %}
 <div class="container">
+    <div class="add-form">
+        <button id="showFormBtn" class="btn btn-primary mt-2">Create new user admin</button>
+        {{ error_message }}
+        <form action="{% url 'user:create_user' %}" method="post" id="add_user_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; ">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username"><strong>User Name:</strong></label>
+                <input type="text" class="form-control" id="username" name="username"  required>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label class="form-label" for="first_name"><strong>First name:</strong></label>
+                    <input class="form-control" id="first_name" name="first_name">
+                </div>
+                <!-- Input for Product Quantity -->
+                <div class="col-6">
+                    <label class="form-label" for="last_name"><strong>Last name:</strong></label>
+                    <input class="form-control" id="last_name" name="last_name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="phone"><strong>Phone:</strong></label>
+                    <input type="phone" class="form-control" id="phone" name="phone">
+                </div>
+                <div class="col-6">
+                    <label for="email"><strong>Email:</strong></label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password1"><strong>Password:</strong></label>
+                <input type="password" class="form-control" id="password1" name="password1" required>
+            </div>
+            <div class="form-group">
+                <label for="password2"><strong>Re-password:</strong></label>
+                <input type="password" class="form-control" id="password2" name="password2" required>
+            </div>
+            <div class="">
+                <label class="form-label" for="staff_status"><strong>Staff:</strong></label>
+                <div class="" id="selectedStatus"></div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="is_staff" id="checkStaff" checked>
+                    <label class="form-check-label" for="checkStaff">
+                        Staff
+                    </label>
+                </div>
+            </div>        
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <a class="btn btn-warning"id="hideFormBtn">Cancel</a>
+        </form>
+    </div>
+    <hr>
     <div class="title">
         <h3>User list</h3>
     </div>
@@ -37,7 +91,7 @@
                     <td>{{ user.last_name }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.is_staff }}</td>
-                    <td><a class="btn btn-success" href="{% url 'user:user_info' user.id %}">Detail</a></td>
+                    <td><a class="btn btn-success" href="{% url 'user:user' user.id %}">Detail</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -67,6 +121,18 @@
                 
         });
     });
+    document.addEventListener('DOMContentLoaded', function(){
+        var showbtn = document.getElementById('showFormBtn')
+        var hidebtn = document.getElementById('hideFormBtn')
+        var add_user_form= document.getElementById('add_user_form')
+
+        showbtn.addEventListener('click', function(){
+            add_user_form.style.display = 'block';
+        })
+        hidebtn.addEventListener('click', function(){
+            add_user_form.style.display = 'none';
+        })
+    })  
        
 </script>
 {% endblock %}
