@@ -20,3 +20,13 @@
 
 ### User, VOucher, promote, order management
 ![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/e22577f2-a9ed-40e4-aea3-d9df77c68d13)
+
+### login and register
+![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/ee724bd9-8bd6-4f9a-b657-fd62b68cf3d2)
+
+![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/968f7f10-a12a-4d78-b29a-9ea4e4897518)
+
+## customer withoust staff cannot access to staff area
+![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/f54cdd6f-692f-4f5a-8365-04aebd88c6ac)
+![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/5ae4acba-900f-483e-a7dd-b56258b69761)
+
