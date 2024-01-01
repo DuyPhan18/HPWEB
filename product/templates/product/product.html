@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row py-3 px-3" style="background-color:#b6ccd8">
+    <div class="row py-3 px-3" style="background-color:#0080c5; height: 10rem; width: 100%;; position: absolute;">
         <div class="col-sm-2">
             <a href="{% url 'product:product_list' %}" class="btn btn-status">All</a>
         </div>
@@ -18,26 +18,51 @@
         <div class="col-sm-3">
             <form method="GET" action="{% url 'product:product_list' %}" class="d-flex" role="search">
                 <input name="search" value="{{ query }}" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-success" type="submit">Search</button>
             </form>
         </div>
-        <div class="col-sm-3">
-            <a href="{% url 'product:add_product' %} " class="btn btn-primary" type="submit">Add new product</a> 
-        </div>
+        
        
     </div>
-    <div class="row">
+    <div class="row mt-8" style="position: absolute;" >
+        <!--add product-->
+        <div class="col-sm-2 m-3">
+            <a href="{% url 'product:add_product' %}" type="submit" class="card jus" style="width: 13rem; height: 16rem; border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); display: flex; justify-content: center; align-items: center; text-decoration: none;">
+                <span class="text-center border" style="border-radius: 50%; background-color: rgb(0, 0, 222); height: 5rem; width: 5rem; display: flex; justify-content: center; align-items: center; font-size: 2.5rem; color: #fff;box-shadow: 0px 0px 10px rgba(76, 11, 125, 0.1)"><strong>+</strong></span>
+            </a>
+        </div>
+        
+        
     {% for product in products %}
         <div class="col-sm-2 m-3">
-            <a href="{% url 'product:product_detail' product.id %}"  class="card" style="width: 13rem; height: 15rem;border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> 
+            <a href="{% url 'product:product_detail' product.id %}"  class="card" style="width: 13rem; height: 16rem; border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> 
                 {% if product.product_image %}
-                <img src="{{product.product_image.url}}" class="card-img-top class= border p-4" style="width: 13rem; height: 10rem;" alt="product_img">
+                <img src="{{product.product_image.url}}" class="card-img-top" style="width: 13rem; height: 10rem;" alt="product_img">
                 {% else %}
                     <p>No image available</p>
                 {% endif %}
-                <div class="card-body">
+                
+                <div class=" row card-body">
+                    {% if product.promotion %}
+                    <span  class="badge text-bg-danger badge-discount"> Discount</span>
+                    {% endif %}
                     <h5 class="card-title">{{product.product_name}}</h5>
-                    <p class="card-text">{{product.product_price}}</p>
+                    <div class="col-6">
+                        {% if product.promotion %}
+                        <p class="card-text" style="color: red;">{{product.product_price}}</p>
+                        {% else %}
+                        <p class="card-text">{{product.product_price}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-6 text-end">
+                        {% if product.status %}
+                        <span  class="badge text-bg-success"> Sale</span>
+                        {% else %}
+                        <span class="badge text-bg-danger"> Un-Sale</span>
+
+                        {% endif %}
+                    </div>
+                   
                 </div>
             </a>
         </div>
