@@ -7,7 +7,7 @@
     <div class="add-form">
         <button id="showFormBtn" class="btn btn-primary">Create new promote</button>
         {{ error_message }}
-        <form action="{% url 'promotion:create_promote' %}" method="post" id="promote_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; ">
+        <form action="{% url 'promotion:create_promote' %}" method="post" id="promote_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; background-color: #fff;">
             {% csrf_token %}
             <div class="form-group">
                 <label for="promote_name">Promote name</label>
@@ -58,7 +58,7 @@
     <div class="list-promote">
         <div class="row p-2">
             {% for promote in promote_list %}
-            <div class="card col-sm-6 m-2 " style=" width: 26rem;border:none; background-color:rgb(240, 240, 240); ">
+            <div class="card col-sm-6 m-2 " style=" width: 26rem;border:none; background-color:rgb(255, 255, 255); ">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">

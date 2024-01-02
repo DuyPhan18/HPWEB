@@ -7,7 +7,7 @@
     <div class="add-form">
         <button id="showFormBtn" class="btn btn-primary">Create new voucher</button>
         {{ error_message }}
-        <form action="{% url 'voucher:create_voucher' %}" method="post" id="v_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; ">
+        <form action="{% url 'voucher:create_voucher' %}" method="post" id="v_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; background-color: #fff;">
             {% csrf_token %}
             <div class="form-group">
                 <label for="voucher_name">Voucher name</label>
@@ -39,18 +39,28 @@
     <div class="list-promote">
         <div class="row p-2">
             {% for v in vouchers %}
-            <div class="card col-sm-6 m-2 " style=" width: 26rem;border:none; background-color:rgb(240, 240, 240); ">
+            {% if v.status %}
+            <div class="card col-sm-6 m-2 " style=" width: 26rem;border:none; background-color:rgb(200, 255, 210); ">
+            {% else %}
+            <div class="card col-sm-6 m-2 " style=" width: 26rem;border:none; background-color:rgb(255, 233, 233); ">
+            {% endif %}
+            
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
                             <h4 class="card-title">{{ v.voucher_name }}</h4>
                         </div>
                         <div class="col-6 text-end">
-                            <a href="" class="btn btn-success"><strong>...</strong></a>
+                            <a href="" class="btn btn-primary"><strong>...</strong></a>
                         </div>
                     </div>
-                   
+                    {% if v.status %}
                     <hr style="border: none; height: 5px; background-color: rgb(0, 94, 3);">
+                    {% else %}
+                    <hr style="border: none; height: 5px; background-color: rgb(225, 0, 0);">
+                    {% endif %}
+                   
+
                     <div class="row">
                         <div class="col-6">
                             <p class="card-text"><strong>Status</strong></p>

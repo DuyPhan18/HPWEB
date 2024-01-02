@@ -7,7 +7,8 @@
     <div class="back_btn mt-3 mb-4">
         <a href="/" class="btn btn-outline-success "> <strong>< Continue shopping</strong></a>
     </div>
-    
+    <form action="{% url 'order:create_order' %}" method="post">
+        {% csrf_token %}
     <div class="cart-content" >
         <div class="table_bill border p-3" style="border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> 
             <table class="table">
@@ -34,8 +35,7 @@
             </table>
         </div>
         <div class="total_bill_info border mt-5 p-3" style="border-radius: 0.4rem; background-color: rgb(229, 229, 229); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-            <form action="{% url 'order:create_order' %}" method="post">
-                {% csrf_token %}
+            
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -63,9 +63,10 @@
                     </div>
                 </div>
                 <button class="btn btn-primary mt-3" type="submit">Checkout</button>
-            </form>
+           
         </div>
     </div>
+</form>
 </div>
 
 <script>

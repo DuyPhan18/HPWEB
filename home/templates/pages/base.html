@@ -12,7 +12,11 @@
     <title>HPWEB - {% block title %} {% endblock %}</title>
     
     <style>
-        
+        html, body {
+            height: 100%;
+            background-color: #f3f1f1;
+          
+        }
         
         .ml-5{
             margin-left: 5px;
@@ -25,7 +29,7 @@
             bottom: 0;
             width: 100%;
             text-align: center;
-            background-color: #f1f1f1; /* Màu nền của footer */
+            background-color: #9d9d9d; /* Màu nền của footer */
             padding: 10px;
         }
         .navbar{
@@ -35,6 +39,11 @@
         }
         .carousel{
             z-index: 0;
+        }
+        .badge-discount{
+            position: absolute;
+            width: fit-content;
+            margin-left: 10rem;
         }
        
     </style>
@@ -100,6 +109,7 @@
      <!--Footer-->
      <footer class="footer mt-5" >
         <div class="container">
+            <hr>
             <div class="row">
                 <div class="col-6">
                     <h5 class="m-5">HPWEB</h5>

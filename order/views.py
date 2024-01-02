@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 from .models import Order, OrderDetails
 from product.models import Products
+from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 def order_list(request):
@@ -13,22 +14,36 @@ def order_list(request):
 @login_required(login_url='login')
 def create_order(request):
     if request.method == "POST":
+        product_id = request.POST.get('product_id')
+        cart = request.session.get('cart', {})
+        quantity = request.POST.get('quantity_choose')
+        total_price = request.POST.get('total_price')
+        print(product_id, quantity, total_price)
+        if product_id in cart:
+            cart[product_id]['quantity'] = quantity
+            cart[product_id]['total_price'] = total_price
+            
+            cart_json = json.dumps(cart, cls=DjangoJSONEncoder)
+            cart = json.loads(cart_json, parse_float=Decimal)
+
+        # Lưu giỏ hàng mới vào session
+        request.session['cart'] = cart
+        request.session.modified = True
+        print(cart)
+ 
         user = request.user
         total_quantity = request.POST.get('total_quantity')
         total_bill = request.POST.get('total_bill')
         voucher = request.POST.get('voucher')
-        print('sssssssss:', type(voucher))
-        print('sssssssss:', type(total_bill))
         if voucher:
            total_bill = int(total_bill) - (int(total_bill) * int(voucher) / 100)
-        print(total_bill)
         data = {
             'user': user,
             'total_quantity':total_quantity,
             'total_bill': total_bill
         }
         order = Order.objects.create(**data)
-        print('ok')
+    
         #Lưu product item trong cart vào order details
         #dùng for lặp lấy key value trong cart
         cart = request.session.get('cart',{})

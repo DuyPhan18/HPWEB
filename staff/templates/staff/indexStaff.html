@@ -3,5 +3,41 @@
 {% block title %} Staff Management {% endblock %}
 
 {% block content %}
-    <h1>hello stxaff</h1>
+
+    <div class="container-fuild p-2">
+        <div class="row">
+            <div class="col-3">
+                <div class="card" style="border: none;">
+                    <div class="card-body"style="border: none;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                        <h4 class="card-title">Revenue</h4>
+                        <p class="card-text text-end" style="font-size: 3rem; font-weight: 700;">{{ total_revenue }} VND</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body "style="border: none;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                        <h4 class="card-title">Orders</h4>
+                        <p class="card-text text-end" style="font-size: 3rem; font-weight: 700;">{{ count_order }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body" style="border: none; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                        <h4 class="card-title">Customer</h4>
+                        <p class="card-text text-end" style="font-size: 3rem; font-weight: 700;">{{ count_customer }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-body" style="border: none;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                        <h4 class="card-title">Products</h4>
+                        <p class="card-text text-end" style="font-size: 3rem; font-weight: 700;">{{ count_product }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

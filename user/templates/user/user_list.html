@@ -7,7 +7,7 @@
     <div class="add-form">
         <button id="showFormBtn" class="btn btn-primary mt-2">Create new user admin</button>
         {{ error_message }}
-        <form action="{% url 'user:create_user' %}" method="post" id="add_user_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; ">
+        <form action="{% url 'user:create_user' %}" method="post" id="add_user_form" class="border p-3 mt-2" style="display: none; border-radius: 0.4rem; background-color: #fff;">
             {% csrf_token %}
             <div class="form-group">
                 <label for="username"><strong>User Name:</strong></label>
@@ -61,7 +61,7 @@
     <div class="title">
         <h3>User list</h3>
     </div>
-    <div class="table-order border p-3" style="border-radius: 0.4rem ;">
+    <div class="table-order border p-3" style="border-radius: 0.4rem ; background-color: #fff;">
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link tab-item " aria-current="page" href="?is_staff=False">Customer</a>

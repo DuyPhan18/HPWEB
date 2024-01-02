@@ -15,7 +15,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h3 class="text-center mb-4">LOGIN</h3>
-            <form action="{% url 'login' %}" method="post" class="border p-4" style="border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+            <form action="{% url 'login' %}" method="post" class="border p-4" style="border-radius: 0.4rem;background-color: #fff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
                 {% csrf_token %}
                 {% for key, value in form.errors.items %}
                 <div class="alert alert-danger" role="alert">
@@ -33,7 +33,7 @@
                 </div>
                 
                 
-                <button type="submit" class="btn btn-primary btn-block mt-2">Login</button>
+                <button type="submit" class="btn btn-primary  btn-block mt-2">Login</button>
                 <div class="text-center">
                     <p>Not a member? <a href="{% url 'register' %}">Register</a></p>
                     <p>or sign up with:</p>

@@ -6,69 +6,71 @@
 
 <div class="container mt-2">
     <a href="{% url 'user:user_list' %}" class="btn btn-success mt-2">Back to user list</a>
-    <form action="{% url 'user:update_user' user.id %}"
-        method="POST" class="update_user" enctype="multipart/form-data" style="border: none; border-radius: 0.4rem;">
-        {% csrf_token %}
-        <div class="row mt-5 ">
-            
-            <div class="col-6">
-                <div class="title">
-                    <h4>Information of user {{user_info.id}}</h4>
-                </div>
-                <img src="{{user_info.product_image.url}}" width="500px" height="300px"  style="border: none; border-radius: 0.4rem;"/>
-                    <!-- Input for Product Image -->
-                <div class="mt-2">
-                    <input type="file" id="product_image" name="product_image" accept="image/*">
-                </div>
+    <div class="form_update mt-3 p-3" style="border: none; border-radius: 0.4rem; background-color: #fff;">
+        <form action="{% url 'user:update_user' user.id %}"method="POST" class="update_user" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="row mt-5 ">
                 
-            </div>
-            <div class="col-6">
-                    <!-- Input for Username -->
-                <div class="">
-                    <label class="form-label" for="username"><strong>User Name:</strong></label>
-                    <input class="form-control" type="text" id="username" name="username" value="{{ user.username }}" required>
-                </div>
-                <!-- Input for Name -->
-                <div class="">
-                    <label class="form-label" for="first_name"><strong>First name:</strong></label>
-                    <input class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" required>
-                </div>
-                <!-- Input for Product Quantity -->
-                <div class="">
-                    <label class="form-label" for="last_name"><strong>Last name:</strong></label>
-                    <input class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" required>
-                </div>
-                <!-- Input for Product Category -->
-                <div class="">
-                    <label class="form-label" for="email"><strong>Email:</strong></label>
-                    <input class="form-control" id="email" name="email" value="{{ user.email }}" required>
-                </div>
-                    <!-- Input for Product Date -->
-                    <div class="">
-                    <label class="form-label" for="password1"><strong>Password:</strong></label>
-                    <input class="form-control" id="password1" name="password1" value="{{ user.password1 }}" >
-                </div>
-                <div class="">
-                    <label class="form-label" for="password2"><strong>Re-password:</strong></label>
-                    <input class="form-control" id="password2" name="password2" value="{{ user.password2 }}" >
-                </div>
-                <!-- Input for Product Status -->
-                <div class="">
-                    <label class="form-label" for="staff_status"><strong>Staff:</strong></label>
-                    <div class="" id="selectedStatus"></div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="is_staff" id="checkStaff" {% if user.is_staff %} checked {% endif %}>
-                        <label class="form-check-label" for="checkStaff">
-                            Staff
-                        </label>
+                <div class="col-6">
+                    <div class="title">
+                        <h4>Information of user {{user_info.id}}</h4>
                     </div>
-                </div>            
+                    <img src="{{user_info.product_image.url}}" width="500px" height="300px"  style="border: none; border-radius: 0.4rem;"/>
+                        <!-- Input for Product Image -->
+                    <div class="mt-2">
+                        <input type="file" id="product_image" name="product_image" accept="image/*">
+                    </div>
+                    
+                </div>
+                <div class="col-6">
+                        <!-- Input for Username -->
+                    <div class="">
+                        <label class="form-label" for="username"><strong>User Name:</strong></label>
+                        <input class="form-control" type="text" id="username" name="username" value="{{ user.username }}" required>
+                    </div>
+                    <!-- Input for Name -->
+                    <div class="">
+                        <label class="form-label" for="first_name"><strong>First name:</strong></label>
+                        <input class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" required>
+                    </div>
+                    <!-- Input for Product Quantity -->
+                    <div class="">
+                        <label class="form-label" for="last_name"><strong>Last name:</strong></label>
+                        <input class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" required>
+                    </div>
+                    <!-- Input for Product Category -->
+                    <div class="">
+                        <label class="form-label" for="email"><strong>Email:</strong></label>
+                        <input class="form-control" id="email" name="email" value="{{ user.email }}" required>
+                    </div>
+                        <!-- Input for Product Date -->
+                        <div class="">
+                        <label class="form-label" for="password1"><strong>Password:</strong></label>
+                        <input class="form-control" id="password1" name="password1" value="{{ user.password1 }}" >
+                    </div>
+                    <div class="">
+                        <label class="form-label" for="password2"><strong>Re-password:</strong></label>
+                        <input class="form-control" id="password2" name="password2" value="{{ user.password2 }}" >
+                    </div>
+                    <!-- Input for Product Status -->
+                    <div class="">
+                        <label class="form-label" for="staff_status"><strong>Staff:</strong></label>
+                        <div class="" id="selectedStatus"></div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="is_staff" id="checkStaff" {% if user.is_staff %} checked {% endif %}>
+                            <label class="form-check-label" for="checkStaff">
+                                Staff
+                            </label>
+                        </div>
+                    </div>            
+                </div>
             </div>
-        </div>
-    
         
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
+            
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+            
+    </div>
 </div>
 
 {% endblock %}
