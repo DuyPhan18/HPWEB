@@ -1,8 +1,7 @@
 # HPWEB (Django, MySQL, HTML, CSS, JAVASCRIPT)
 
 ### HOme
-![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/ab83c6c5-e301-48bd-a8d8-061eb99d61d1)
-
+![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/71ba425b-92a5-4cdb-bb43-d10664f2b57d)
 ### Product
 ![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/64c49236-8074-4c06-b24e-ed2c19f06b35)
 ### cart
