@@ -13,6 +13,9 @@
 
 ### account with is_stadd = true can access to staff area
 ![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/f4edf26b-eea0-4d11-8490-2b1ce1e7f3aa)
+### dashboard
+![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/e0d298ac-7bd3-4c95-9511-78084abfe57f)
+
 ### Product management
 ![image](https://github.com/DuyPhan18/HPWEB/assets/102722461/40005da7-6502-4753-bbf9-f8663725e29b)
 ### product detail
