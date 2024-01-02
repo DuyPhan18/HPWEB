@@ -9,64 +9,63 @@
     </div>
     <form action="{% url 'order:create_order' %}" method="post">
         {% csrf_token %}
-    <div class="cart-content" >
-        <div class="table_bill border p-3" style="border-radius: 0.4rem; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Product name</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product_id, item in cart.items %}
-                    <tr class="border cart-content" data-id="{{ product_id }}">
-                        <td>{{ item.product_name }}</td>
-                        <td class="product_price">{{ item.product_price }}</td>
-                        <td><input type="number" class="quantity" name="quantity_choose" value="{{ item.quantity }}"></td>
-                        <td><input type="number" class="total_price" id="total_price"name="total_price" style="border: none;"  value="{{ item.total_price }}" readonly></td>
-                        <td><a href="{% url 'delete_from_cart' product_id %}" class="btn btn-danger del_btn">DELETE</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="total_bill_info border mt-5 p-3" style="border-radius: 0.4rem; background-color: rgb(229, 229, 229); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-            
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for=""><strong>Total quantity:</strong></label>
-                            <input type="number" name="total_quantity" id="total_quantity" value="{{ total_quantity }}"style="border: none; background-color: rgb(198, 198, 198);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
+        <div class="cart-content" >
+            <div class="table_bill border p-3" style="border-radius: 0.4rem;background-color: #fff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);"> 
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product_id, item in cart.items %}
+                        <tr class="border cart-content" data-id="{{ product_id }}">
+                            <td>{{ item.product_name }}</td>
+                            <td class="product_price">{{ item.product_price }}</td>
+                            <td><input type="number" class="quantity" name="quantity_choose" value="{{ item.quantity }}"></td>
+                            <td><input type="number" class="total_price" id="total_price"name="total_price" style="border: none;"  value="{{ item.total_price }}" readonly></td>
+                            <td><a href="{% url 'delete_from_cart' product_id %}" class="btn btn-danger del_btn">DELETE</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="total_bill_info border mt-5 p-3" style="border-radius: 0.4rem; background-color: rgb(255, 255, 255); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for=""><strong>Total quantity:</strong></label>
+                                <input type="number" name="total_quantity" id="total_quantity" value="{{ total_quantity }}"style="border: none; background-color: rgb(230, 230, 230);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for=""><strong>Total bill:</strong></label>
+                                <input type="number" name="total_bill" id="total_bill" value="{{ total_bill }}" style="border: none; background-color: rgb(230, 230, 230);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for=""><strong>Total bill:</strong></label>
-                            <input type="number" name="total_bill" id="total_bill" value="{{ total_bill }}" style="border: none; background-color: rgb(198, 198, 198);" class="form-control" placeholder="" aria-describedby="helpId" readonly>
+                        <div class="col-sm-6" style="height: 8rem; overflow: auto;">
+                            <h5>Voucher list:</h5>
+                            <div class="voucher_list justify-content-center">
+                                {% for v in vouchers %}
+                                {% if v.status %}
+                                <label class="custom-control custom-checkbox p-2 mb-2" style=" width: 13rem;;border-radius: 0.4rem;border: 2px solid #0e0e0e;">
+                                <span class="custom-control-indicator">{{v.voucher_name}}</span> -
+                                <span class="custom-control-description"><strong>{{v.v_discount}}</strong></span>
+                                <input type="checkbox" name="voucher" id="voucher" value="{{v.v_discount}}" class="custom-control-input">
+                                </label>
+                                {% endif %}
+                                {% endfor %}
+                            </div>          
                         </div>
                     </div>
-                    <div class="col-sm-6" style="height: 8rem; overflow: auto;">
-                        <h5>Voucher list:</h5>
-                          <div class="voucher_list justify-content-center">
-                            {% for v in vouchers %}
-                            {% if v.status %}
-                            <label class="custom-control custom-checkbox p-2 mb-2" style=" width: 13rem;;border-radius: 0.4rem;border: 2px solid #0e0e0e;">
-                              <span class="custom-control-indicator">{{v.voucher_name}}</span> -
-                              <span class="custom-control-description"><strong>{{v.v_discount}}</strong></span>
-                              <input type="checkbox" name="voucher" id="voucher" value="{{v.v_discount}}" class="custom-control-input">
-                            </label>
-                            {% endif %}
-                            {% endfor %}
-                          </div>          
-                    </div>
-                </div>
-                <button class="btn btn-primary mt-3" type="submit">Checkout</button>
-           
+                    <button class="btn btn-primary mt-3" type="submit">Checkout</button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
 </div>
 
 <script>
